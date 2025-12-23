@@ -1,0 +1,24 @@
+pkgname=dwm-fb
+pkgver=1.0
+pkgrel=1
+pkgdesc="A dynamic window manager for X - Fryed Version"
+url="https://github.com/fryedbiscuit/dwm"
+arch=('i686' 'x86_64' 'arm' 'armv7h' 'armv6h' 'aarch64')
+license=('MIT')
+# options=(zipman)
+depends=('libx11' 'libxinerama' 'libxft' 'freetype')
+makedepends=('git' 'make')
+provides=('dwm')
+conflicts=('dwm')
+source=(git+https://github.com/fryedbiscuit/dwm.git#branch=main)
+sha256sums=('SKIP')
+
+build() {
+	cd dwm
+	make
+}
+
+package() {
+	cd dwm
+	make PREFIX="${PREFIX:-/usr}" DESTDIR="$pkgdir" install
+}
