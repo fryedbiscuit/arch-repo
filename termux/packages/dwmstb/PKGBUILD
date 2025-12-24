@@ -1,0 +1,24 @@
+pkgname=dwmstb
+pkgver=r3.be93140
+pkgrel=1
+pkgdesc="Bog standard status bar for dwm"
+url="https://github.com/fryedbiscuit/dwmstb"
+arch=('i686' 'x86_64' 'arm' 'armv7h' 'armv6h' 'aarch64')
+depends=('libx11' 'pulseaudio' 'termux-api' 'noto-fonts-emoji')
+makedepends=('git' 'make')
+source=(git+https://github.com/fryedbiscuit/dwmstb.git#branch=main)
+sha256sums=('SKIP')
+
+pkgver() {
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd dwmstb
+	make
+}
+
+package() {
+	cd dwmstb
+	make DESTDIR=$pkgdir PREFIX="$PREFIX" install
+}
