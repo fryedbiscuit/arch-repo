@@ -1,5 +1,5 @@
 pkgname=dwm-fb
-pkgver=1.0
+pkgver=r1.e145067
 pkgrel=1
 pkgdesc="A dynamic window manager for X - Fryed Version"
 url="https://github.com/fryedbiscuit/dwm"
@@ -12,6 +12,10 @@ provides=('dwm')
 conflicts=('dwm')
 source=(git+https://github.com/fryedbiscuit/dwm.git#branch=main)
 sha256sums=('SKIP')
+
+pkgver() {
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
 
 build() {
 	cd dwm
